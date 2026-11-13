@@ -9,6 +9,7 @@ function Registrar() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [rol, setRol] = useState('USER', 'ADMIN'); // Estado para el rol del usuario
 
   const navigate = useNavigate();
 
@@ -27,7 +28,7 @@ function Registrar() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, password, rol }),
       });
 
       if (!response.ok) {
@@ -87,6 +88,19 @@ function Registrar() {
               required
             />
           </div>
+          <div className="login-field">
+            <label htmlFor="rol">Tipo de cuenta</label>
+
+            <select
+                id="rol"
+                value={rol}
+                onChange={(e) => setRol(e.target.value)}
+                required
+            >
+                <option value="USER">Usuario</option>
+                <option value="ADMIN">Administrador</option>
+            </select>
+        </div>
 
           {error && (
             <div className="login-error">
